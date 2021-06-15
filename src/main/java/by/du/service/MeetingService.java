@@ -2,6 +2,7 @@ package by.du.service;
 
 import by.du.exception.NotFoundException;
 import by.du.model.Meeting;
+import by.du.model.Workout;
 import by.du.repository.Dao;
 
 import java.time.LocalDateTime;
@@ -44,4 +45,6 @@ public class MeetingService implements Service<Meeting> {
     public MeetingService(Dao<Meeting> meetingDao) {
         this.meetingDao = meetingDao;
     }
+
+    
 }

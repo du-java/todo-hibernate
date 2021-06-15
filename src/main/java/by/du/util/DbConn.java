@@ -14,9 +14,9 @@ public enum DbConn {
         if (connection == null) {
             try {
                 String url = Props.getValue("url").orElse("localhost:3306");
-                String db = Props.getValue("db").orElse("test");
+                String db = Props.getValue("db").orElse("data");
                 String user = Props.getValue("user").orElse("root");
-                String pass = Props.getValue("pass").orElse("pass");
+                String pass = Props.getValue("pass").orElse("root");
                 connection = DriverManager.getConnection("jdbc:mysql://" + url + "/" + db, user, pass);
             } catch (SQLException exception) {
                 throw new IllegalStateException();

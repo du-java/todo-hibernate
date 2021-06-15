@@ -1,16 +1,15 @@
 package by.du;
 
 import by.du.model.Workout;
+import by.du.repository.Dao;
 import by.du.repository.WorkoutDAO;
-import by.du.util.DbConn;
-import com.mysql.cj.xdevapi.PreparableStatement;
+import by.du.service.WorkoutService;
+import org.hibernate.Session;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.List;
 
 public class App5 {
 
@@ -23,30 +22,24 @@ public class App5 {
 
         System.out.println(workout);
 
-        WorkoutDAO wdao = new WorkoutDAO();
 
-        wdao.create(workout);//DAO не работает! Что делать ?
 
-//        create(workout);
+        WorkoutService ws = new WorkoutService();
+
+
+
 
     }
-//    statement.executeUpdate("create table tbl_for_workout(" +
-//                "id int primary key auto_increment," +
-//                "sport varchar(10) not null," +
-//                "duration double not null," +
-//                "begin timestamp not null," +
-//                "isDone boolean not null)");
 
-    private static final String query = "insert into tbl_for_workout(" +
-            "sport,duration,begin,isDone) values (?,?,?,?)";
+    public static <T> String showList(List<T> localList) {
+        StringBuilder rtn = new StringBuilder();
+        for (Object tmp : localList) {
+            rtn.append(tmp).append("\n");
+        }
+        return rtn.toString();
+    }
 
-    public static void create(Workout workout) throws SQLException {
-        Statement statement = DbConn.INSTANCE.getConnection().createStatement();
-        statement.executeUpdate("use data");
-        PreparedStatement ps = DbConn.INSTANCE.getConnection().prepareStatement(query);
-        ps.setString(1, workout.getSport().toString());
-        ps.setDouble(2, workout.getDuration());
-        ps.setTimestamp(3, Timestamp.valueOf(workout.getBegin()));
-        ps.setBoolean(4, workout.isDone());
+    public static WorkoutService getWorkoutService(Session session){
+        final Dao<Workout> workoutDao = new WorkoutDAO(session);
     }
 }

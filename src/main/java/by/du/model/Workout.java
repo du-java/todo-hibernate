@@ -16,7 +16,7 @@ public class Workout implements Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "sport")
-    private Sport sport;
+    private String sport;
     @Column(name = "duration")
     private double duration;
     @Column(name = "begin")
@@ -24,38 +24,19 @@ public class Workout implements Event {
     @Column(name = "isDone")
     private boolean isDone;
 
-    public Workout(Sport sport, double duration, LocalDateTime begin, boolean isDone) {
+    public Workout(String  sport, double duration, LocalDateTime begin, boolean isDone) {
         this.sport = sport;
         this.duration = duration;
         this.begin = begin;
         this.isDone = isDone;
     }
 
-    @Override
-    public Integer getId() {
-        return null;
+
+    public static final class Sport {
+
+        public static final String BOXING = "BOXING";
+        public static final String SWIMMING = "SWIMMING0";
+
     }
-
-    public enum Sport {
-        BOXING("Boxing"),
-        SWIMMING("Swimming");
-
-        private String name;
-
-        Sport(String name) {
-            this.name = name;
-        }
-    }
-
-//    public static void main(String[] args) throws SQLException {
-
-//        Statement statement = DbConn.INSTANCE.getConnection().createStatement();
-//        statement.executeUpdate("drop table tbl_for_workout");
-//        statement.executeUpdate("create table tbl_for_workout(" +
-//                "id int primary key auto_increment," +
-//                "sport varchar(10) not null," +
-//                "duration double not null," +
-//                "begin timestamp not null," +
-//                "isDone boolean not null)");
-//    }
 }
+
