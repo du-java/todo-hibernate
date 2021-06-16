@@ -10,23 +10,35 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 
 public class App5 {
 
     public static void main(String[] args) throws SQLException {
         Workout workout = new Workout
-                (Workout.Sport.BOXING,
-                        1.5,
-                        LocalDateTime.of(2021, Month.APRIL, 5, 20, 30, 0),
-                        true);
+                (Workout.Sport.SWIMMING,
+                        1.8,
+                        LocalDateTime.of(2021, Month.DECEMBER, 6, 21, 26, 3),
+                        false);
 
         System.out.println(workout);
+        System.out.println("->");
 
 
-
-        WorkoutService ws = new WorkoutService();
-
-
+        WorkoutDAO wdao = new WorkoutDAO();
+        wdao.create(workout);
+        List<Workout> all1 = wdao.findAll();
+        String s = showList(all1);
+        System.out.println(s);
+        Optional<Workout> workoutByID = wdao.findById(4);
+        Workout workoutID4 = workoutByID.get();
+        System.out.println("Get: " + workoutID4);
+        Optional<Workout> optionalId1 = wdao.findById(1);
+        Workout workoutId1 = optionalId1.get();
+        wdao.delete(workoutId1);
+        List<Workout> all2 = wdao.findAll();
+        String s1 = showList(all2);
+        System.out.println(s1);
 
 
     }
@@ -39,7 +51,5 @@ public class App5 {
         return rtn.toString();
     }
 
-    public static WorkoutService getWorkoutService(Session session){
-        final Dao<Workout> workoutDao = new WorkoutDAO(session);
-    }
+
 }
