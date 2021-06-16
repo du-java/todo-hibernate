@@ -19,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class WorkoutDAO implements Dao<Workout> {
 
-    private final Session session = HibernateConfig.getSessionForWorkout();
+    public static final Session session = HibernateConfig.getSessionForWorkout();
 
     public WorkoutDAO(Session session) {
     }
